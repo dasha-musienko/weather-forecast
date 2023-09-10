@@ -1,5 +1,12 @@
+import { fetchWeather } from './weatherService';
+import { createsMarkup } from './rendersWebsite';
+import { createsChart } from './chartService';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+console.log(Notify);
+
 const refs = {
   cityInput: document.querySelector('.geo-input'),
+  mainEl: document.querySelector('main'),
   searchBtn: document.querySelector('.search-btn'),
   currentTemp: document.querySelector('.day-stats__temperature-value'),
   feelslikeTemp: document.querySelector('.day-stats__feelslike-value'),
@@ -22,6 +29,10 @@ const refs = {
 
 const tempValues = {
   city: '',
+  labels: [],
+  data: [],
+
+  myChart: null,
 };
 
 refs.cityInput.addEventListener('input', cityInputHandler);
@@ -32,53 +43,28 @@ function cityInputHandler(e) {
 }
 
 function searchBtnClickHandler() {
-  fetchWeather(tempValues.city).then(data => {
-    console.log(data);
-
-    createMarkup(data);
-  });
-}
-
-function fetchWeather(city) {
-  console.log(city);
-  BASE_URL = 'http://api.weatherapi.com/v1/';
-  API_KEY = '6f3bf7a06a84400a8c1181835232108';
-
-  return fetch(`${BASE_URL}forecast.json?key=${API_KEY}&q=${city}`).then(
-    resp => {
-      if (!resp.ok) {
-        throw new Error(resp.statusText);
+  fetchWeather(tempValues.city)
+    .then(data => {
+      refs.mainEl.className = '';
+      if (tempValues.myChart) {
+        tempValues.myChart.destroy();
       }
-      return resp.json();
-    }
-  );
+      console.log(data);
+
+      createsMarkup(data, refs, tempValues);
+      createsChart(tempValues);
+    })
+    .catch(err => {
+      Notify.failure('Enter a valid city');
+    })
+    .finally(() => {
+      resetsValues();
+    });
 }
 
-function createMarkup(obj) {
-  refs.currentTemp.innerHTML = obj.current.temp_c;
-  refs.feelslikeTemp.innerHTML = obj.current.feelslike_c;
-  refs.cloudsValue.innerHTML = obj.current.cloud;
-  refs.humidityValue.innerHTML = obj.current.humidity;
-  refs.uvIdx.innerHTML = obj.current.uv;
-  refs.weatherTitle.innerHTML = obj.current.condition.text;
-  refs.weatherCity.innerHTML = obj.location.name;
-  refs.weatherCountry.innerHTML = obj.location.country;
-  refs.weatherDate.innerHTML = obj.location.localtime;
-  refs.weatherWindDir.innerHTML = obj.current.wind_dir;
-  refs.weatherSpeed.innerHTML = obj.current.wind_kph;
-  refs.weatherPressure.innerHTML = obj.current.pressure_mb;
-  refs.weatherRain.innerHTML =
-    obj.forecast.forecastday[0].day.daily_chance_of_rain;
-  refs.weatherSnow.innerHTML =
-    obj.forecast.forecastday[0].day.daily_chance_of_snow;
-  refs.weatherMaxTemp.innerHTML = obj.forecast.forecastday[0].day.maxtemp_c;
-  refs.weatherMinTemp.innerHTML = obj.forecast.forecastday[0].day.mintemp_c;
-  [...refs.forecastItems].map((el, idx) => {
-    el.querySelector('.forecast__time').innerHTML =
-      obj.forecast.forecastday[0].hour[(idx + 1) * 2].time.split(' ')[1];
-    el.querySelector('.forecast__temperature--value').innerHTML =
-      obj.forecast.forecastday[0].hour[(idx + 1) * 2].temp_c;
-    el.querySelector('.forecast__wind-value').innerHTML =
-      obj.forecast.forecastday[0].hour[(idx + 1) * 2].wind_kph;
-  });
+function resetsValues() {
+  tempValues.city = '';
+  tempValues.data = [];
+  tempValues.labels = [];
+  refs.cityInput.value = '';
 }

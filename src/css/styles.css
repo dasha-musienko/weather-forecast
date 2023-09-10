@@ -22,12 +22,62 @@ main {
   width: 1079px;
   height: 625px;
 
-  background-image: url(../img/Grid/unsplash_e_ZxKz3_2Nc.png);
+  /* background-image: url('../img/sunny.jpeg'); */
   background-repeat: no-repeat;
   background-size: cover;
 
   border-radius: 25px;
   overflow: hidden;
+}
+
+main.sunny {
+  background-image: url('../img/sunny.jpeg');
+}
+main.cloudy {
+  background-image: url('../img/cloudy.jpeg');
+}
+main.sunny {
+  background-image: url('../img/sunny.jpeg');
+}
+main.overcast {
+  background-image: url('../img/overcast.jpeg');
+}
+main.mist {
+  background-image: url('../img/mist.jpeg');
+}
+main.rain {
+  background-image: url('../img/rain.jpeg');
+}
+main.snow {
+  background-image: url('../img/snow.jpeg');
+}
+main.sleet {
+  background-image: url('../img/sleet.jpeg');
+}
+main.drizzle {
+  background-image: url('../img/drizzle.jpeg');
+}
+main.thunder,
+main.thundery {
+  background-image: url('../img/thunder.jpeg');
+}
+main.blizzard {
+  background-image: url('../img/blizzard.jpeg');
+}
+main.fog {
+  background-image: url('../img/fog.jpeg');
+}
+main.ice {
+  background-image: url('../img/ice.jpeg');
+}
+main.shower {
+  background-image: url('../img/shower.jpeg');
+}
+main.showers {
+  background-image: url('../img/showers.jpeg');
+}
+main.clear {
+  background-image: url('../img/clear.jpeg');
 }
 
 .side-container {
@@ -190,7 +240,7 @@ main {
 .main-container {
   position: relative;
   width: calc(1079px - 250px);
-  height: 500px;
+  height: 530px;
 
   display: flex;
   flex-direction: column;
@@ -266,4 +316,9 @@ main {
   font-size: 40px;
   font-weight: 300;
   line-height: 100%;
+}
+
+#chart {
+  margin-top: 30px;
+  width: 100%;
 }
