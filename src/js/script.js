@@ -38,14 +38,27 @@ const tempValues = {
 refs.cityInput.addEventListener('input', cityInputHandler);
 refs.searchBtn.addEventListener('click', searchBtnClickHandler);
 
+fetchService('kyiv');
 function cityInputHandler(e) {
   tempValues.city = e.currentTarget.value.toLowerCase();
 }
 
 function searchBtnClickHandler() {
-  fetchWeather(tempValues.city)
+  fetchService(tempValues.city);
+}
+
+function resetsValues() {
+  tempValues.city = '';
+  tempValues.data = [];
+  tempValues.labels = [];
+  refs.cityInput.value = '';
+}
+
+function fetchService(city) {
+  fetchWeather(city)
     .then(data => {
       refs.mainEl.className = '';
+
       if (tempValues.myChart) {
         tempValues.myChart.destroy();
       }
@@ -60,11 +73,4 @@ function searchBtnClickHandler() {
     .finally(() => {
       resetsValues();
     });
-}
-
-function resetsValues() {
-  tempValues.city = '';
-  tempValues.data = [];
-  tempValues.labels = [];
-  refs.cityInput.value = '';
 }

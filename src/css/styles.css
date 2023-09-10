@@ -6,7 +6,6 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
-  /* font-weight: 400; */
   line-height: normal;
 }
 
@@ -15,14 +14,14 @@ body {
 }
 
 main {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin: 100px auto 0;
-  width: 1079px;
-  height: 625px;
+  width: fit-content;
+  height: 635px;
 
-  /* background-image: url('../img/sunny.jpeg'); */
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -144,6 +143,7 @@ main.clear {
   font-size: 50px;
   line-height: 100%;
 }
+
 .day-stats__temperature-value {
   line-height: 100%;
 }
@@ -174,11 +174,14 @@ main.clear {
 .day-stats__conditon {
   color: #fff;
   font-size: 24px;
+  line-height: 100%;
 }
+
 .day-stats__conditon-text {
   color: #fff;
   font-size: 13px;
 }
+
 /* UV CONTAINER */
 .uv-container {
   width: 100%;
@@ -224,7 +227,9 @@ main.clear {
 .uv-stat__text {
   color: #fff;
   font-size: 13px;
+  font-weight: 200;
 }
+
 .uv-value {
   color: #fff;
   font-size: 13px;
@@ -269,6 +274,7 @@ main.clear {
 
   margin-bottom: 26px;
 }
+
 .location-icon {
   margin-right: 8px;
 }
@@ -294,6 +300,7 @@ main.clear {
 
   list-style: none;
 }
+
 .forecast-item {
   display: flex;
   flex-direction: column;
@@ -319,6 +326,86 @@ main.clear {
 }
 
 #chart {
-  margin-top: 30px;
+  margin: 30px auto 30px;
   width: 100%;
+}
+
+/* MEDIA */
+
+@media screen and (max-width: 1100px) {
+  main {
+    width: 779px;
+  }
+
+  .side-container {
+    width: fit-content;
+  }
+
+  .geo-input {
+    font-size: 10px;
+  }
+
+  .day-stats__temperature {
+    font-size: 40px;
+  }
+
+  .day-stats__conditon {
+    font-size: 20px;
+  }
+
+  .day-stats__conditon-text {
+    font-size: 10px;
+  }
+
+  .uv-stat__text {
+    font-size: 11px;
+  }
+
+  .forecast__time {
+    font-size: 12px;
+  }
+
+  .forecast__wind-text {
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .forecast__temperature {
+    font-size: 22px;
+    margin-bottom: 10;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  main {
+    width: 490px;
+  }
+
+  .main-container {
+    width: 100%;
+    padding: 0 30px;
+  }
+
+  .weather__location {
+    width: 200px;
+    margin-bottom: 16px;
+  }
+
+  .weather__primary-stats {
+    width: 200px;
+    margin-bottom: 40px;
+  }
+
+  .forecast {
+    flex-wrap: wrap;
+  }
+
+  .forecast__temperature {
+    font-size: 14px;
+  }
+
+  .forecast__wind-text {
+    font-size: 8px;
+    width: 30px;
+  }
 }
