@@ -2,7 +2,6 @@ import { fetchWeather } from './weatherService';
 import { createsMarkup } from './rendersWebsite';
 import { createsChart } from './chartService';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-console.log(Notify);
 
 const refs = {
   cityInput: document.querySelector('.geo-input'),
@@ -62,7 +61,6 @@ function fetchService(city) {
       if (tempValues.myChart) {
         tempValues.myChart.destroy();
       }
-      console.log(data);
 
       createsMarkup(data, refs, tempValues);
       createsChart(tempValues);

@@ -1,5 +1,4 @@
 export function fetchWeather(city) {
-  console.log(city);
   BASE_URL = 'http://api.weatherapi.com/v1/';
   API_KEY = '6f3bf7a06a84400a8c1181835232108';
 
