@@ -19,23 +19,14 @@ export function createsMarkup(obj, refs, tempValues) {
   refs.weatherMinTemp.innerHTML = obj.forecast.forecastday[0].day.mintemp_c;
 
   function createsStartForecastTime() {
-    let time = obj.location.localtime.split(' ')[1];
-    let timeArr = time.split(':');
-
-    if (timeArr[0] % 2) {
-      timeArr[0] = +timeArr[0] + 1;
-    } else {
-      timeArr[0] = +timeArr[0] + 2;
-    }
-
-    return timeArr[0];
+    return +obj.location.localtime.split(' ')[1].split(':')[0] + 1;
   }
 
   createsForecastMarkup(createsForecastObj());
 
   function createsForecastObj() {
     const resultArray = obj.forecast.forecastday[0].hour.filter(
-      (el, idx, arr) =>
+      (el) =>
         +el.time.split(' ')[1].split(':')[0] > +createsStartForecastTime()
     );
 
